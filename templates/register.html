@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Campus Connect</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0b1020;
+            color: #e5e7eb;
+            font-family: "Segoe UI", Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .register-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 35px;
+            background: #172033;
+            border: 1px solid #303b55;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #c4b5fd;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            margin: 16px 0 8px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #374151;
+            border-radius: 10px;
+            background: #0f172a;
+            color: white;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: 2px solid #8b5cf6;
+            border-color: transparent;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #7c3aed, #4338ca);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button:hover { opacity: 0.9; }
+
+        .login-link {
+            margin-top: 22px;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        a { color: #c4b5fd; }
+    </style>
+</head>
+<body>
+    <main class="register-card">
+        <h1>Campus Connect</h1>
+        <p class="subtitle">Create your student account</p>
+
+        <form action="{{ url_for('register') }}" method="POST">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name"
+                   autocomplete="name" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email"
+                   autocomplete="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password"
+                   autocomplete="new-password" minlength="8" required>
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <p class="login-link">
+            Already registered? <a href="{{ url_for('login') }}">Login</a>
+        </p>
+    </main>
+</body>
+</html>

@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Found Item</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="header">
+        <h1>Report Found Item</h1>
+    </div>
+
+    <div class="container">
+        <form method="POST" action="/found-item">
+
+            <label>Item Name</label>
+            <input type="text" name="item_name" placeholder="Enter item name" required>
+
+            <label>Category</label>
+            <select name="category" required>
+                <option value="">Select Category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Books">Books</option>
+                <option value="ID Card">ID Card</option>
+                <option value="Wallet">Wallet</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label>Found Location</label>
+            <input type="text" name="found_location" placeholder="Enter found location" required>
+
+            <label>Found Date</label>
+            <input type="date" name="found_date" required>
+
+            <label>Description</label>
+            <textarea name="description" placeholder="Describe the found item"></textarea>
+
+            <label>Contact Information</label>
+            <input type="text" name="contact_info" placeholder="Enter contact information" required>
+
+            <button type="submit" class="btn">Submit Found Item</button>
+
+        </form>
+
+        <a href="/" class="btn">Back to Home</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Lost Items</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="header">
+        <h1>Reported Lost Items</h1>
+    </div>
+
+    <div class="container">
+
+        <div class="search-panel">
+            <input
+                type="text"
+                id="itemSearch"
+                placeholder="🔎 Search by item name, location or description..."
+                oninput="filterItems()"
+            >
+
+            <select id="categoryFilter" onchange="filterItems()">
+                <option value="">All Categories</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Books">Books</option>
+                <option value="ID Card">ID Card</option>
+                <option value="Wallet">Wallet</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <p id="resultCount"></p>
+        </div>
+
+        {% if items %}
+            {% for item in items %}
+                <div class="item-card">
+                    <h2>{{ item['item_name'] }}</h2>
+                    <p><strong>Category:</strong> {{ item['category'] }}</p>
+                    <p><strong>Lost Location:</strong> {{ item['lost_location'] }}</p>
+                    <p><strong>Lost Date:</strong> {{ item['lost_date'] }}</p>
+                    <p><strong>Description:</strong> {{ item['description'] or 'No description provided' }}</p>
+                   
+<p>
+    <strong>Contact Owner:</strong>
+    <a href="tel:{{ item['contact_info']|trim }}">
+        {{ item['contact_info'] }}
+    </a>
+</p>
+
+                    <p><strong>Status:</strong> {{ item['status'] }}</p>
+
+<form action="{{ url_for('update_status', item_type='lost', item_id=item['id']) }}" method="POST">
+    <label for="status-{{ item['id'] }}">Update Status:</label>
+    <select id="status-{{ item['id'] }}" name="status">
+        <option value="Still Available" {% if item['status'] == 'Still Available' %}selected{% endif %}>Still Available</option>
+        <option value="Returned" {% if item['status'] == 'Returned' %}selected{% endif %}>Returned</option>
+    </select>
+    <button type="submit" class="btn">Update Status</button>
+</form>
+
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No lost items have been reported yet.</p>
+        {% endif %}
+
+        <a href="/" class="btn">Back to Home</a>
+    </div>
+
+<script>
+    function filterItems() {
+        const searchValue = document.getElementById("itemSearch").value.toLowerCase().trim();
+        const categoryValue = document.getElementById("categoryFilter").value.toLowerCase();
+        const cards = document.querySelectorAll(".item-card");
+        let visibleCount = 0;
+
+        cards.forEach(function(card) {
+            const text = card.innerText.toLowerCase();
+            const matchesSearch = text.includes(searchValue);
+            const matchesCategory = !categoryValue ||
+                card.querySelector("p strong")?.nextSibling?.textContent
+                    .toLowerCase().includes(categoryValue);
+
+            if (matchesSearch && matchesCategory) {
+                card.style.display = "";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        document.getElementById("resultCount").textContent =
+            visibleCount + (visibleCount === 1 ? " item found" : " items found");
+    }
+
+    document.addEventListener("DOMContentLoaded", filterItems);
+</script>
+
+</body>
+</html>

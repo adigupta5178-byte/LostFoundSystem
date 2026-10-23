@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Lost Item</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Report Lost Item</h1>
+    </div>
+
+    <div class="container">
+
+        <form method="POST" action="/lost-item">
+
+            <label>Item Name</label><br>
+           <input type="text" name="item_name" placeholder="Enter item name" required><br><br>
+
+            <label>Category</label><br>
+           <select name="category" required>
+                <option value="">Select Category</option>
+                <option>Electronics</option>
+                <option>Books</option>
+                <option>Documents</option>
+                <option>Accessories</option>
+                <option>Other</option>
+            </select><br><br>
+
+            <label>Lost Location</label><br>
+           <input type="text" name="lost_location" placeholder="Enter lost location" required><br><br>
+
+            <label>Lost Date</label><br>
+           <input type="date" name="lost_date" required><br><br>
+
+            <label>Description</label><br>
+           <textarea name="description" placeholder="Describe the lost item"></textarea><br><br>
+
+            <label>Contact Information</label><br>
+            <input type="text" name="contact_info" placeholder="Enter contact information" required><br><br>
+
+            <button type="submit" class="btn">Submit Lost Item</button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
